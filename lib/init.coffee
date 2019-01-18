@@ -21,8 +21,8 @@ module.exports =
     severityLevel:
       type: 'string'
       title: 'Severity level'
-      default: 'Error'
-      enum: ['Error', 'Warning', 'Info']
+      default: 'error'
+      enum: ['error', 'warning', 'info']
 
   activate: ->
     @subscriptions = new CompositeDisposable
