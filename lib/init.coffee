@@ -73,7 +73,7 @@ module.exports =
       lint: (textEditor) =>
         return new Promise (resolve, reject) =>
           location: {
-            file: textEditor.getPath()
+            filePath: textEditor.getPath()
             }
 
           output = ""
@@ -97,11 +97,13 @@ module.exports =
                 messages.push
                   severity: atom.config.get 'linter-write-good.severityLevel'
                   excerpt: match.message
-                  filePath: filePath
-                  range: [
+                  location: {
+                  	file: filePath
+                  	position: [
                     [match.lineStart, match.colStart]
                     [match.lineStart, match.colEnd]
                   ]
+                  }
 
               resolve messages
 
