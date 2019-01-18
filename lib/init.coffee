@@ -68,11 +68,13 @@ module.exports =
 
       scope: 'file' # or 'project'
 
-      lintOnFly: true # must be false for scope: 'project'
+      lintsOnChange: true # must be false for scope: 'project'
 
       lint: (textEditor) =>
         return new Promise (resolve, reject) =>
-          filePath = textEditor.getPath()
+          location: {
+            file: textEditor.getPath()
+            }
 
           output = ""
 
@@ -93,8 +95,8 @@ module.exports =
                 match.lineStart = parseInt(match.line) - 1
                 match.colEnd = match.colStart + match.offset.length
                 messages.push
-                  type: atom.config.get 'linter-write-good.severityLevel'
-                  text: match.message
+                  severity: atom.config.get 'linter-write-good.severityLevel'
+                  excerpt: match.message
                   filePath: filePath
                   range: [
                     [match.lineStart, match.colStart]
