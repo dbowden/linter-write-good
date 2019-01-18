@@ -1,5 +1,5 @@
 path = require 'path'
-{XRegExp} = require 'xregexp'
+XRegExp = require 'xregexp'
 {BufferedProcess, CompositeDisposable} = require 'atom'
 
 writeGoodRe = '[^^]*(?<offset>\\^+)[^^]*\n(?<message>.+?) on line (?<line>\\d+) at column (?<col>\\d+)\n?'
@@ -72,9 +72,7 @@ module.exports =
 
       lint: (textEditor) =>
         return new Promise (resolve, reject) =>
-          location: {
-            filePath: textEditor.getPath()
-            }
+          filePath = textEditor.getPath()
 
           output = ""
 
@@ -98,11 +96,11 @@ module.exports =
                   severity: atom.config.get 'linter-write-good.severityLevel'
                   excerpt: match.message
                   location: {
-                  	file: filePath
-                  	position: [
-                    [match.lineStart, match.colStart]
-                    [match.lineStart, match.colEnd]
-                  ]
+                    file: filePath
+                    position: [
+                      [match.lineStart, match.colStart]
+                      [match.lineStart, match.colEnd]
+                    ]
                   }
 
               resolve messages
